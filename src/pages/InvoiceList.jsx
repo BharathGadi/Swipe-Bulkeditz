@@ -22,7 +22,7 @@ const InvoiceList = () => {
       navigate(`/create/${copyId}`);
     }
   };
-
+  console.log(invoiceList,"list")
   return (
     <Row>
       <Col className="mx-auto" xs={12} md={8} lg={9}>
@@ -41,6 +41,9 @@ const InvoiceList = () => {
                 <h3 className="fw-bold pb-2 pb-md-4">Invoice List</h3>
                 <Link to="/create">
                   <Button variant="primary mb-2 mb-md-4">Create Invoice</Button>
+                </Link>
+                <Link to="/bulkEdit">
+                  <Button variant="primary mb-2 mb-md-4">Edit Bulk</Button>
                 </Link>
 
                 <div className="d-flex gap-2">
