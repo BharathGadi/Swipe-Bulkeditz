@@ -11,19 +11,29 @@ const invoicesSlice = createSlice({
       return state.filter((invoice) => invoice.id !== action.payload);
     },
     updateInvoice: (state, action) => {
-      console.log(action.payload,"this is payload")
-      return produce(state, (draftState) => {
-        const index = draftState.findIndex(
-          (invoice) => invoice.id == action.payload.id
-        );
-        if (index !== -1) {
-          draftState[index] = action.payload.updatedInvoice;
+      const index = state.findIndex(
+        (invoice) => invoice.id == action.payload.id // BugFix-Here replcing === with == as we are string type id with number type id
+      );
+      if (index !== -1) {
+        state[index] = action.payload.updatedInvoice;
+      }
+    },
+    updateTheBulkInvoice: (state, action) => {
+      return [...action.payload];
+    },
+    updateBulkItemsWithId: (state, action) => {
+      const { rowId, rows, ...rest } = action.payload;
+      return state.map((invoice) => {
+        if (invoice.id === rowId) {
+          return {
+            ...invoice,
+            items: [...rows],
+            ...rest,
+          };
         }
+        return invoice;
       });
     },
-    updateTheBulkInvoice:(state,action)=>{
-     return [...action.payload]
-    }
   },
 });
 
@@ -31,7 +41,8 @@ export const {
   addInvoice,
   deleteInvoice,
   updateInvoice,
-  updateTheBulkInvoice
+  updateTheBulkInvoice,
+  updateBulkItemsWithId,
 } = invoicesSlice.actions;
 
 export const selectInvoiceList = (state) => state.invoices;

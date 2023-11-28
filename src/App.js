@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Invoice from "./pages/Invoice";
 import InvoiceList from "./pages/InvoiceList";
 import BulkEdtiTable from "./components/BulkEditTable";
+import EditItemsModal from "./components/BulkEditItems";
 
 const App = () => {
   return (
